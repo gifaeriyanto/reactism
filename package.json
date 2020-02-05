@@ -1,6 +1,6 @@
 {
   "name": "reactism",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Command Lind Interface (CLI) for generate project and features from Reactism",
   "main": "index.js",
   "repository": {
