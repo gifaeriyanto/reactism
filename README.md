@@ -1,6 +1,6 @@
 # Reactism
 
-Reactism is a React Boilerplate based Next.js
+Reactism is a React Boilerplate based Next.js (_CRA coming soon_)
 
     npm install -g reactism
 
