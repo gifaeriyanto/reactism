@@ -1,0 +1,29 @@
+{
+  "name": "reactism",
+  "version": "1.0.4",
+  "description": "Command Lind Interface (CLI) for generate project and features from Reactism",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GifaEriyanto/reactism-cli.git"
+  },
+  "keywords": [
+    "reactism"
+  ],
+  "author": "Gifa Eriyanto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GifaEriyanto/reactism-cli/issues"
+  },
+  "homepage": "https://github.com/GifaEriyanto/reactism-cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "inquirer": "^6.2.0",
+    "node-cmd": "^3.0.0",
+    "npm": "^6.4.1",
+    "ora": "^3.0.0"
+  },
+  "preferGlobal": true,
+  "bin": "./index.js"
+}
