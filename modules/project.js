@@ -6,19 +6,22 @@ const spinner = ora('Creating a Next Project...').start();
 
 const stepAfterClone = projectName => {
   spinner.text = 'Installing dependencies...';
-  cmd.get(`cd ${projectName} && rm -rf .git && yarn`, err => {
-    if (!err) {
-      spinner.color = 'green';
-      spinner.succeed(
-        `Thanks for using ${chalk.cyan(
-          'Reactism',
-        )} as your React Boilerplate. ENJOY!!!`,
-      );
-    } else {
-      spinner.color = 'red';
-      spinner.fail(`Something wrong: ${chalk.red(err)}`);
-    }
-  });
+  cmd.get(
+    `cd ${projectName} && rm -rf .git && rm -rf .github  && rm -rf LICENSE  && rm -rf CODE_OF_CONDUCT.md && yarn`,
+    err => {
+      if (!err) {
+        spinner.color = 'green';
+        spinner.succeed(
+          `Thanks for using ${chalk.cyan(
+            'Reactism',
+          )} as your React Boilerplate. ENJOY!!!`,
+        );
+      } else {
+        spinner.color = 'red';
+        spinner.fail(`Something wrong: ${chalk.red(err)}`);
+      }
+    },
+  );
 };
 
 const createProject = projectName => {
