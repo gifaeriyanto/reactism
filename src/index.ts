@@ -5,6 +5,7 @@ import * as inquirer from 'inquirer';
 import { downloadTemplate } from './api/download-template';
 import { getTemplateList } from './api/get-template-list';
 import { runCommand } from './utils/runCommand';
+import Listr from 'listr';
 
 class Reactism extends Command {
   static description = 'describe the command here';
@@ -23,8 +24,6 @@ class Reactism extends Command {
   static async install() {
     const { name, packageManager } = Reactism.projectInfo;
 
-    cli.action.start(`Installing dependencies`);
-
     await runCommand(
       `cd "${process.cwd()}/${name}" && ${packageManager} install`,
     );
@@ -34,8 +33,6 @@ class Reactism extends Command {
 
   static async download() {
     const { name, template } = Reactism.projectInfo;
-
-    cli.action.start(`Initializing project base on ${template} template`);
 
     const destFolder = process.cwd() + '/' + name;
     mkdirSync(destFolder);
@@ -86,11 +83,28 @@ class Reactism extends Command {
 
   async run() {
     await Reactism.create();
-    await Reactism.download();
-    await Reactism.install();
-    this.log(
-      'Thanks for using Reactism as your React Boilerplate. Happy Code !!!',
-    );
+
+    const tasks = new Listr([
+      {
+        title: 'Cloning template',
+        task: Reactism.download,
+      },
+      {
+        title: 'Install npm dependencies',
+        task: Reactism.install,
+      },
+    ]);
+
+    tasks
+      .run()
+      .then(() => {
+        this.log(
+          'Thanks for using Reactism as your React Boilerplate. Happy Code !!!',
+        );
+      })
+      .catch((err) => {
+        this.error(err);
+      });
   }
 }
 
