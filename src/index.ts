@@ -21,24 +21,20 @@ class Reactism extends Command {
     help: flags.help({ char: 'h' }),
   };
 
-  static async install() {
-    const { name, packageManager } = Reactism.projectInfo;
-
-    await runCommand(
-      `cd "${process.cwd()}/${name}" && ${packageManager} install`,
-    );
-
-    cli.action.stop();
-  }
-
   static async download() {
     const { name, template } = Reactism.projectInfo;
 
     const destFolder = process.cwd() + '/' + name;
     mkdirSync(destFolder);
     await downloadTemplate(destFolder, template);
+  }
 
-    cli.action.stop();
+  static async install() {
+    const { name, packageManager } = Reactism.projectInfo;
+
+    await runCommand(
+      `cd "${process.cwd()}/${name}" && ${packageManager} install`,
+    );
   }
 
   static async create() {
