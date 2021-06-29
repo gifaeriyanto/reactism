@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
-import { mkdirSync } from 'fs';
+import { mkdirSync, readFile, writeFile } from 'fs';
 import * as inquirer from 'inquirer';
 import { downloadTemplate } from './api/download-template';
 import { getTemplateList } from './api/get-template-list';
@@ -35,6 +35,33 @@ class Reactism extends Command {
     await runCommand(
       `cd "${process.cwd()}/${name}" && ${packageManager} install`,
     );
+  }
+
+  static async updatePackageJSON() {
+    return new Promise((resolve, reject) => {
+      const { name, desc } = Reactism.projectInfo;
+
+      readFile(`${process.cwd()}/${name}/package.json`, 'utf8', (err, data) => {
+        if (err) {
+          return;
+        }
+
+        const packageJSON: any = JSON.parse(data);
+        packageJSON.name = name;
+        packageJSON.description = desc;
+        writeFile(
+          `${process.cwd()}/${name}/package.json`,
+          JSON.stringify(packageJSON, null, 2),
+          'utf8',
+          (err) => {
+            if (err) {
+              reject(err);
+            }
+            resolve('success update package.json');
+          },
+        );
+      });
+    });
   }
 
   static async create() {
@@ -88,6 +115,10 @@ class Reactism extends Command {
       {
         title: 'Install npm dependencies',
         task: Reactism.install,
+      },
+      {
+        title: 'Update project info',
+        task: Reactism.updatePackageJSON,
       },
     ]);
 
