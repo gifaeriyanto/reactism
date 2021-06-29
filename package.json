@@ -1,7 +1,7 @@
 {
   "name": "reactism",
   "description": "Don't take too long to get started!",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Gifa Eriyanto @gifaeriyanto",
   "bin": {
     "reactism": "./bin/run"
