@@ -113,12 +113,12 @@ class Reactism extends Command {
         task: Reactism.download,
       },
       {
-        title: 'Install npm dependencies',
-        task: Reactism.install,
-      },
-      {
         title: 'Update project info',
         task: Reactism.updatePackageJSON,
+      },
+      {
+        title: 'Install npm dependencies',
+        task: Reactism.install,
       },
     ]);
 
