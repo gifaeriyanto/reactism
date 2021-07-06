@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { GithubContentAPIResponse } from './get-template-list';
 import { DownloaderHelper } from 'node-downloader-helper';
-import { mkdirSync } from 'fs';
+import { mkdirSync, rename } from 'fs';
+import { cli } from 'cli-ux';
 
 export const downloadTemplate = async (
   destFolder: string,
@@ -27,6 +28,21 @@ export const downloadTemplate = async (
           item.download_url,
           subFolder ? destFolder + '/' + subFolder : destFolder,
         );
+        dl.on('end', (stats) => {
+          if (item.name !== stats.fileName) {
+            rename(
+              destFolder + '/' + stats.fileName,
+              destFolder + '/' + item.name,
+              (err) => {
+                if (err) {
+                  cli.error(err.message, {
+                    exit: false,
+                  });
+                }
+              },
+            );
+          }
+        });
         await dl.start();
       }
     }),
