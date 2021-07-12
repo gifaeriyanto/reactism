@@ -16,6 +16,10 @@ export const downloadTemplate = async (
 
   await Promise.all(
     data.map(async (item) => {
+      if (item.name === '.gitkeep') {
+        return;
+      }
+
       if (item.type === 'dir') {
         mkdirSync(destFolder + '/' + item.name);
         await downloadTemplate(
